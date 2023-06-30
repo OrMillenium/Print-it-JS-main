@@ -16,3 +16,17 @@ const slides = [
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
 	}
 ]
+
+//Variables constantes non modifiable
+const arrowLeft = document.querySelector('.arrow_left');
+const arrowRight = document.querySelector('.arrow_right');
+
+
+
+//L'instruction let permet de déclarer une variable
+let IdSlide = 0;
+
+arrowRight.addEventListener('click', showNextImage);
+arrowLeft.addEventListener('click', showPreviousImage);
+
+console. log(); //Tester fonctionnenement des events
