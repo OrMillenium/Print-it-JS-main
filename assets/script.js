@@ -17,16 +17,16 @@ const slides = [
     }
 ]
 
-// Sélectionner le conteneur de la bannière
+// Sélectionne le conteneur de la bannière
 const banner = document.getElementById('banner');
 
-// Sélectionner l'image de la bannière
+// Sélectionne l'image de la bannière
 const bannerImage = banner.querySelector('.banner-img');
 
-// Sélectionner le paragraphe de la bannière
+// Sélectionne le paragraphe de la bannière
 const bannerText = banner.querySelector('p');
 
-// Sélectionner le conteneur des points
+// Sélectionne le conteneur des points
 const dotContainer = banner.querySelector('.dots');
 
 const dot = document.querySelectorAll('.dot');
@@ -37,7 +37,7 @@ for (let dot = 0; dot < slides.length; dot = dot + 1) {
     span.classList.add('dot');
     dotContainer.appendChild(span);
     //rend les bullet points cliquable
-    // Ajouter un écouteur d'événements de clic à chaque point
+    // Ajoute un écouteur d'événements de clic à chaque point
     span.addEventListener('click', () => {
         // Mettre à jour l'index avec l'index du point cliqué
         index = dot;
@@ -87,14 +87,14 @@ function previousSlide() {
     console.log(index)
 }
 
-// Ajouter EventListener sur la flèche gauche
+// Ajout EventListener sur la flèche gauche
 const arrowLeft = banner.querySelector('.arrow_left');
 arrowLeft.addEventListener('click', () => {
     console.log('Flèche gauche cliquée !');
     previousSlide();
 });
 
-// Ajouter EventListener sur la flèche droite
+// Ajout EventListener sur la flèche droite
 const arrowRight = banner.querySelector('.arrow_right');
 arrowRight.addEventListener('click', () => {
     console.log('Flèche droite cliquée !');
