@@ -15,88 +15,53 @@ const slides = [
         "image": "slide4.png",
         "tagLine": "Autocollants <span>avec découpe laser sur mesure</span>"
     }
-]
+];
 
 // Sélectionne le conteneur de la bannière
-const banner = document.getElementById('banner');
-
+const banner = document.getElementById("banner");
 // Sélectionne l'image de la bannière
-const bannerImage = banner.querySelector('.banner-img');
-
+const bannerImage = banner.querySelector(".banner-img");
 // Sélectionne le paragraphe de la bannière
-const bannerText = banner.querySelector('p');
-
+const bannerText = banner.querySelector("p");
 // Sélectionne le conteneur des points
-const dotContainer = banner.querySelector('.dots');
-
-const dot = document.querySelectorAll('.dot');
-
-// Ajoute les points (bullets)
-for (let dot = 0; dot < slides.length; dot = dot + 1) {
-    const span = document.createElement('span');
-    span.classList.add('dot');
-    dotContainer.appendChild(span);
-    //rend les bullet points cliquable
-    // Ajoute un écouteur d'événements de clic à chaque point
-    span.addEventListener('click', () => {
-        // Mettre à jour l'index avec l'index du point cliqué
-        index = dot;
-        updateBanner();
-    });
-}
-
-// Sélection du premier point comme point sur slider en cours
-const dots = dotContainer.querySelectorAll('.dot');
-dots[0].classList.add('dot_selected');
-
-
-// Fonction pour mettre à jour la bannière
-function updateBanner() {
-    bannerImage.src = './assets/images/slideshow/' + slides[index].image;
-    bannerText.innerHTML = slides[index].tagLine;
-
-    // Mettre à jour le bullet point actif
-    dots.forEach((dot, dotIndex) => {
-        dot.classList.remove('dot_selected');
-        if (dotIndex === index) {
-            dot.classList.add('dot_selected');
-        }
-    });
-}
-
-let index = 0;
-// Fonction pour passer au slide suivant
-function nextSlide() {
-    index = index + 1
-    if (index >= slides.length) {
-        // nous mettons à jour l'index avec le premier slide (index 0)
-        index = 0;
-    }
-    updateBanner();
-}
-
-// Fonction pour passer au slide précédent
-function previousSlide() {
-    index = index - 1
-    if (index < 0) {
-        // Mise à jour de l'index avec le dernier slide
-        index = slides.length - 1;
-    }
-    updateBanner();
-    console.log(slides[index].image)
-    console.log(index)
-}
+const dotContainer = banner.querySelector(".dots");
 
 // Ajout EventListener sur la flèche gauche
-const arrowLeft = banner.querySelector('.arrow_left');
-arrowLeft.addEventListener('click', () => {
-    console.log('Flèche gauche cliquée !');
-    previousSlide();
+const arrowLeft = banner.querySelector(".arrow_left");
+arrowLeft.addEventListener("click", () => {
+  console.log("Flèche gauche cliquée !");
+  updateSlide(-1);
 });
 
 // Ajout EventListener sur la flèche droite
-const arrowRight = banner.querySelector('.arrow_right');
-arrowRight.addEventListener('click', () => {
-    console.log('Flèche droite cliquée !');
-    nextSlide();
+const arrowRight = banner.querySelector(".arrow_right");
+arrowRight.addEventListener("click", () => {
+  console.log("Flèche droite cliquée !");
+  updateSlide(1);
 });
+
+
+const dots = slides.map(() => {
+  const span = document.createElement("span");
+  span.classList.add("dot");
+  dotContainer.appendChild(span);
+  return span;
+});
+
+// Fonction pour mettre à jour la bannière
+// Fonction pour passer au slide suivant
+let index = 0;
+
+function updateSlide(offset) {
+  index = (index + offset + slides.length) % slides.length;
+  const slide = slides[index];
+  bannerImage.src = `./assets/images/slideshow/${slide.image}`;
+  bannerText.innerHTML = slide.tagLine;
+
+  // Mettre à jour le bullet point actif
+  dots.forEach((dot, dotIndex) => {
+    dot.classList.toggle("dot_selected", dotIndex === index);
+  });
+}
+
+updateSlide(0);
